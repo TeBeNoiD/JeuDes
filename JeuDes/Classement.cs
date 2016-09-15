@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,14 +13,27 @@ namespace JeuDes
     /// <summary>
     /// Objet regroupant les scores des parties précédentes
     /// </summary>
+    //TODO Commenter le code
     [Serializable]
-    public class Classement
+    public class Classement : IEnumerator
     {
+        #region Attributes and properties
         /// <summary>
         /// Collection des entréés de l'objet Classement
         /// </summary>
-        #region Attributes and properties
+        public static TypeFichier SauvegardeType = TypeFichier.Binaire;
+
         private List<Entree> _Entrees;
+
+        private int _Index = -1;
+
+        public object Current
+        {
+            get
+            {
+                return _Index;
+            }
+        }
 
         public List<Entree> Entrees
         {
@@ -55,6 +69,22 @@ namespace JeuDes
         {
             this.Entrees.Sort();
             return this.Entrees;
+        }
+
+        public bool MoveNext()
+        {
+            _Index++;
+            return _Index < Entrees.Count;
+        }
+
+        public void Reset()
+        {
+            _Index = -1;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return Entrees.GetEnumerator();
         }
         #endregion
     }

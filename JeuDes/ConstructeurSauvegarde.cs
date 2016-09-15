@@ -24,14 +24,14 @@ namespace JeuDes
         #endregion
 
         #region Method
-        public ISauvegardable getSauvegarde(string type)
+        public static ISauvegarde getSauvegarde(TypeFichier type)
         {
             switch (type)
             {
-                case "xml":
+                case TypeFichier.Xml:
                     return new SauvegardeXml();
                     
-                case "binaire":
+                case TypeFichier.Binaire:
                 default:
                     return new SauvegardeBinaire();
             }

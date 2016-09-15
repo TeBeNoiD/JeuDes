@@ -9,12 +9,13 @@ namespace JeuDes
     /// <summary>
     /// 
     /// </summary>
-    public abstract class Sauvegarde : ISauvegardable
+    public abstract class Sauvegarde : ISauvegarde
     {
         #region Attributes and properties
         public Classement Classement;
-        #endregion
         
+        #endregion
+
         #region Constructors
         protected Sauvegarde(Classement classement)
         {
@@ -25,9 +26,18 @@ namespace JeuDes
         #endregion
 
         #region Method
-        public abstract void Lire();
+        public abstract Classement Lire();
 
         public abstract void Ecrire();
         #endregion
     }
+
+    public enum TypeFichier
+    {
+        Xml,
+        Binaire,
+        Json
+    }
+
+    
 }

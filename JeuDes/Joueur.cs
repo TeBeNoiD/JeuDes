@@ -47,6 +47,13 @@ namespace JeuDes
         {
             this.Nom = nom;
             this.Score = 0;
+            if (GroupeDe.NbDes > 0)
+            {
+                for (int i = 0; i < GroupeDe.NbDes; i++)
+                {
+                    this.GrpDes.Des.Add(new De());
+                }
+            }
         }
 
         /// <summary>
@@ -56,25 +63,36 @@ namespace JeuDes
         #endregion
 
         #region Method
+        /// <summary>
+        /// Jouer un tour de lancement du groupe de dés
+        /// Selon les règles du jeux le score du joueur est modifié
+        /// </summary>
+        /// <returns>la combinaison</returns>
         public int[] Jouer()
         {
+            //Régle: 2 dés égaux
             //Si le joueur reussi n dés identiques
             //il marque 10 points
-            bool EstIdentique = true;
-            for (int i = 0; i < GrpDes.Des.Count; i++)
+            int[] CombinaisonDes = GrpDes.Lancer();
+            bool EstIdentique = false;
+            if (this.GrpDes.Des.Count > 0)
             {
-                if (i > 0 && GrpDes.Des[i] != GrpDes.Des[i - 1])
+                for (int i = 0; i < this.GrpDes.Des.Count; i++)
                 {
-                    EstIdentique = false;
-                    break;
+                    if (i > 0 && this.GrpDes.Des[i] == this.GrpDes.Des[i - 1])
+                    {
+                        EstIdentique = true;
+                        break;
+                    }
                 }
             }
+            
             if (EstIdentique)
             {
                 this.Score += 10;
             }
 
-            return GrpDes.Lancer();
+            return CombinaisonDes;
         }
         #endregion
     }

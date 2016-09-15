@@ -9,10 +9,10 @@ namespace JeuDes
     /// <summary>
     /// 
     /// </summary>
-    public interface ISauvegardable
+    public interface ISauvegarde
     {
         #region Method
-        void Lire();
+        Classement Lire();
 
         void Ecrire();
         #endregion

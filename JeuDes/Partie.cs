@@ -26,15 +26,18 @@ namespace JeuDes
         /// </summary>
         public List<Joueur> Joueurs { get; set; }
 
+        /// <summary>
+        /// Nombre de fois ou le(s) joueurs lance le groupe de dés
+        /// </summary>
         public static int NbTours = 10;
         #endregion
 
+        #region Constructors
         /// <summary>
         /// Constructeur complet 
         /// </summary>
         /// <param name="joueur">Joueur de la partie</param>
         /// <param name="classement">Classement des parties précédentes</param>
-        #region Constructors
         public Partie(List<Joueur> joueurs, Classement classement)
         {
             this.Joueurs = joueurs;
@@ -54,23 +57,6 @@ namespace JeuDes
         #endregion
 
         #region Method
-        /// <summary>
-        /// Méthode pour joueur la partie 
-        /// </summary>
-        public void JouerPartie()
-        {
-            //int NbTour = 10;
-            //for (int i = 0; i < NbTour; i++)
-            //{
-            //    Console.WriteLine("Tour {0}, {1} a lancé les deux dés:", i + 1, this.Joueur.Nom);
-            //    this.Joueur.Jouer();
-            //    Console.ReadLine();
-            //}
-            //this.Classement.AjouterEntree(new Entree(this.Joueur.Nom, this.Joueur.Score));
-            //Console.WriteLine("Le score du joueur {0} est de {1}, BRAVO !!!", this.Joueur.Nom, this.Joueur.Score);
-        }
-
-
 
         #endregion
     }

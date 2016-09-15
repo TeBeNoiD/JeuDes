@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace JeuDes
 {
     /// <summary>
-    /// Définit un objet de type Dé utilisé par une partie
+    /// Définit un objet de type Dé utilisé pendant une partie
     /// </summary>
     public class De
     {
@@ -42,7 +42,67 @@ namespace JeuDes
         #endregion
 
         #region Method
+        /// <summary>
+        /// Renvoyer la valeur de l'objet de type De sous forme de chaine de caractère
+        /// </summary>
+        /// <returns>Valeur du dé</returns>
+        public override string ToString()
+        {
+            return _Valeur.ToString();
+        }
 
+        /// <summary>
+        /// Renvoyer le hashcode de la valeur de l'objet de type De
+        /// </summary>
+        /// <returns>Objet de type entier définissant le hashcode de la valeur du dé</returns>
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+
+        /// <summary>
+        /// Vérifier si l'objet de type De est égale à un objet.
+        /// Vérifie si les valeurs des 2 objets de type De sont égales.
+        /// </summary>
+        /// <param name="obj">Objet de type De</param>
+        /// <returns>return false si obj est null, si obj n'est pas de type De
+        /// ou si les valeurs de chaques objet de type De ne sont pas égales
+        /// sinon retourne true
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            if (obj != null && obj is De)
+            {
+                De d = (De)obj;
+                if (this._Valeur == d.Valeur)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Redéfinition de l'operateur == basé sur la méthode Equals()
+        /// </summary>
+        /// <param name="de">Objet de type De</param>
+        /// <param name="obj">Objet de type object et par héritage de type De</param>
+        /// <returns>true si les deux objets sont égaux sinon retourne false</returns>
+        public static bool operator == (De de, object obj)
+        {
+            return de.Equals(obj);
+        }
+
+        /// <summary>
+        /// Redéfinition de l'operateur != basé sur la méthode Equals()
+        /// </summary>
+        /// <param name="de">Objet de type De</param>
+        /// <param name="obj">Objet de type object et par héritage de type De</param>
+        /// <returns>false si les deux objets sont égaux sinon retourne true</returns>
+        public static bool operator != (De de, object obj)
+        {
+            return !de.Equals(obj);
+        }
         #endregion
     }
 }

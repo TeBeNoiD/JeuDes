@@ -16,13 +16,7 @@ namespace JeuDes
     public class SauvegardeXml : Sauvegarde
     {
         #region Attributes and properties
-        private Classement _Classement;
 
-        public Classement Classement
-        {
-            get { return _Classement; }
-            set { _Classement = value; }
-        }
         #endregion
 
         #region Constructors
@@ -30,16 +24,17 @@ namespace JeuDes
         #endregion
 
         #region Method
-        public override void Lire()
+        public override Classement Lire()
         {
             string SavFile = "sav.xml";
             if (File.Exists(SavFile))
             {
                 Stream Flux = File.OpenRead(SavFile);
                 XmlSerializer S = new XmlSerializer(Classement.GetType());
-                S.Serialize(Flux, this.Classement);
+                this.Classement = (Classement)S.Deserialize(Flux);
                 Flux.Close();
             }
+            return this.Classement;
         }
 
         public override void Ecrire()

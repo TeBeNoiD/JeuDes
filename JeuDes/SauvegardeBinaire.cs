@@ -24,7 +24,7 @@ namespace JeuDes
         #endregion
 
         #region Method
-        public override void Lire()
+        public override Classement Lire()
         {
             Stream Flux;
             if (File.Exists("sav.bin"))
@@ -35,6 +35,7 @@ namespace JeuDes
                 this.Classement = (Classement)obj;
                 Flux.Close();
             }
+            return this.Classement;
         }
 
         public override void Ecrire()
