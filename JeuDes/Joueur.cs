@@ -34,7 +34,7 @@ namespace JeuDes
         public int Score
         {
             get { return _Score; }
-            protected set { _Score = value; }
+            set { _Score = value; }
         }
         #endregion
 
@@ -47,9 +47,9 @@ namespace JeuDes
         {
             this.Nom = nom;
             this.Score = 0;
-            if (GroupeDe.NbDes > 0)
+            if (Partie.NombreDes > 0)
             {
-                for (int i = 0; i < GroupeDe.NbDes; i++)
+                for (int i = 0; i < Partie.NombreDes; i++)
                 {
                     this.GrpDes.Des.Add(new De());
                 }

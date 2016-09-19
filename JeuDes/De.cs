@@ -16,11 +16,6 @@ namespace JeuDes
     {
         #region Attributes and properties
         /// <summary>
-        /// Nombre de face des dés
-        /// </summary>
-        public static int NbFaces = 6;
-
-        /// <summary>
         /// Valeur du Dé
         /// </summary>
         private int _Valeur;

@@ -22,14 +22,30 @@ namespace JeuDes
         public Classement Classement { get; set; }
 
         /// <summary>
-        /// Collection de joueur de la partie
+        /// Collection de joueurs de la partie
         /// </summary>
         public List<Joueur> Joueurs { get; set; }
 
         /// <summary>
         /// Nombre de fois ou le(s) joueurs lance le groupe de dés
         /// </summary>
-        public static int NbTours = 10;
+        public static int NombreTours = 10;
+
+        /// <summary>
+        /// Type de sauvegarde
+        /// Par défaut la sauvegarde s'effectue dans un fichier binaire
+        /// </summary>
+        public static TypeFichier SauvegardeType = TypeFichier.Binaire;
+
+        /// <summary>
+        /// Nombre de face des dés
+        /// </summary>
+        public static int NombreFaces = 6;
+
+        /// <summary>
+        /// Nombre de dés dans la partie
+        /// </summary>
+        public static int NombreDes = 2;
         #endregion
 
         #region Constructors
@@ -54,10 +70,6 @@ namespace JeuDes
         /// Constructeur par défaut
         /// </summary>
         public Partie() : this(new List<Joueur>(), new Classement()) { }
-        #endregion
-
-        #region Method
-
         #endregion
     }
 }

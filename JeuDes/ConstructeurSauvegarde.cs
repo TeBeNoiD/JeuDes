@@ -4,30 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Jeu de dés 
+/// </summary>
 namespace JeuDes
 {
     /// <summary>
-    /// 
+    /// Constructeur de sauvegarde
     /// </summary>
     public class ConstructeurSauvegarde
     {
-        #region Attributes and properties
-        private static ConstructeurSauvegarde Constructeur = new ConstructeurSauvegarde();
-        #endregion
-
-        public static ConstructeurSauvegarde getSauvegardeInstance ()
-        {
-            return Constructeur;
-        }
-        #region Constructors
-
-        #endregion
-
         #region Method
-        public static ISauvegarde getSauvegarde(TypeFichier type)
+        /// <summary>
+        /// Récupérer une instance d'objet de type Sauvegarde
+        /// Permettant d'enregistrer le classement d'une partie
+        /// </summary>
+        /// <returns></returns>
+        public static Sauvegarde RecupererSauvegarde()
         {
-            switch (type)
+            switch (Partie.SauvegardeType)
             {
+                case TypeFichier.Json:
+                    return new SauvegardeJson();
+
                 case TypeFichier.Xml:
                     return new SauvegardeXml();
                     
@@ -36,7 +35,6 @@ namespace JeuDes
                     return new SauvegardeBinaire();
             }
         }
-
         #endregion
     }
 }
