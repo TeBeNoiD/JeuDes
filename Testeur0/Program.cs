@@ -12,7 +12,7 @@ namespace Testeur0
     {
         public static void Titre()
         {
-            Console.WriteLine("Jeux 1 joueur à 2 Dés");
+            Console.WriteLine("Jeux à n joueur à n Dés pendant n tours");
         }
 
         public static void Menu()
@@ -29,24 +29,37 @@ namespace Testeur0
         public static void Moteur()
         {
             Partie p = new Partie();
+            
+            //Paramètrage de la partie
+            Partie.NombreDes = 3;
+            Partie.NombreFaces = 6;
+            Partie.NombreTours = 3;
+            int NombreJoueur = 2;
+
+            //Sauvegarde de la partie
             Sauvegarde Sauvegarde;
 
+            //Selection du menu
             int SelectionMenu = 0;
             int.TryParse(Console.ReadLine(), out SelectionMenu);
 
             switch (SelectionMenu)
             {
-                case 0:
+                case 0: // retour au menu
                 default:
-                    break;
-                case 1:
                     Console.Clear();
-                    Console.WriteLine("Indiquez un nom de joueur:");
-                    string Nom = Console.ReadLine();
-
-                    //Liste des Joueurs (1 joueur)
+                    RetourMenu();
+                    break;
+                case 1: //Action de jeu
+                    Console.Clear();
                     List<Joueur> ListeJoueurs = new List<Joueur>();
-                    ListeJoueurs.Add(new Joueur(Nom));
+                    for (int i = 0; i < NombreJoueur; i++)
+                    {
+                        Console.WriteLine("Indiquez un nom de joueur {0}:",i + 1);
+                        string Nom = Console.ReadLine();
+
+                        ListeJoueurs.Add(new Joueur(Nom));
+                    }
 
                     p.Joueurs = ListeJoueurs;
                     p.Classement = new Classement();
@@ -60,21 +73,20 @@ namespace Testeur0
                             grDes.Lancer();
 
                             string strCombi = "";
+                            bool estEgale = true;
                             for (int k = 0; k < grDes.Des.Count; k++)
                             {
+                                if (k > 0)
+                                {
+                                    if (grDes.Des[k] == grDes.Des[k])
+                                        estEgale = false;
+                                }
                                 strCombi += grDes.Des[k].ToString() + " ";
                             }
-                            Console.WriteLine(String.Format(" {0,-15} {1}", p.Joueurs[j].Nom, strCombi));
-
-                            //Gestion du score pour chaque joueur
-                            if(grDes.Des[0] == grDes.Des[1])
-                            {
-                                p.Joueurs[j].Score += 5;
-                            }
-                            else if ((grDes.Des[0].Valeur + grDes.Des[1].Valeur) == 7)
-                            {
+                            if (estEgale)
                                 p.Joueurs[j].Score += 10;
-                            }
+
+                            Console.WriteLine(String.Format(" {0,-15} {1}", p.Joueurs[j].Nom, strCombi));
                             Console.WriteLine("{0} a pour score {1}.", p.Joueurs[j].Nom, p.Joueurs[j].Score); 
                         }
                         Console.ReadLine();
@@ -85,22 +97,35 @@ namespace Testeur0
                     {
                         p.Classement.AjouterEntree(new Entree(p.Joueurs[i].Nom, p.Joueurs[i].Score));
                     }
-                        
+                    
+                    //--------Sauvegarde du classement  
+                    //Choix du type de sauvegarde   
                     Partie.SauvegardeType = TypeFichier.Xml;
+
+                    //Recupération de l'objet de type Sauvegarde (Design pattern Factory)
                     Sauvegarde = ConstructeurSauvegarde.RecupererSauvegarde();
+
+                    //Affectation de l'objet classement de la partie à celui de la sauvegarde
                     Sauvegarde.Classement = p.Classement;
+
+                    //Enregistrement de la sauvegarde
                     Sauvegarde.Ecrire();
+                    //------------------------------------
 
                     Program.RetourMenu();
                     break;
-                case 2: //Affichage classement binaire
+                case 2: //binaire
                     {
                         Console.Clear();
                         Console.WriteLine("Classement:");
+
+                        //----------Recuperation du classement de la sauvegarde
                         Partie.SauvegardeType = TypeFichier.Binaire;
                         Sauvegarde = ConstructeurSauvegarde.RecupererSauvegarde();
                         Classement jeuClassement = Sauvegarde.Lire();
+                        //------------------------------------------------------
 
+                        //Affichage du classement
                         foreach (Entree e in jeuClassement)
                         {
                             Console.WriteLine(e);
@@ -109,15 +134,18 @@ namespace Testeur0
                         Program.RetourMenu();
                         break;
                     }
-                case 3: //Affichage classement xml
+                case 3: //xml
                     {
                         Console.Clear();
                         Console.WriteLine("Classement:");
 
+                        //----------Recuperation du classement de la sauvegarde
                         Partie.SauvegardeType = TypeFichier.Xml;
                         Sauvegarde = ConstructeurSauvegarde.RecupererSauvegarde();
                         Classement jeuClassement = Sauvegarde.Lire();
+                        //------------------------------------------------------
 
+                        //Affichage du classement
                         foreach (Entree e in jeuClassement)
                         {
                             Console.WriteLine(e);
@@ -126,15 +154,18 @@ namespace Testeur0
                         Program.RetourMenu();
                         break;
                     }
-                case 4: //Affichage classement Json
+                case 4: //Json
                     {
                         Console.Clear();
                         Console.WriteLine("Classement:");
 
+                        //----------Recuperation du classement de la sauvegarde
                         Partie.SauvegardeType = TypeFichier.Json;
                         Sauvegarde = ConstructeurSauvegarde.RecupererSauvegarde();
                         Classement jeuClassement = Sauvegarde.Lire();
+                        //------------------------------------------------------
 
+                        //Affichage du classement
                         foreach (Entree e in jeuClassement)
                         {
                             Console.WriteLine(e);
@@ -143,7 +174,7 @@ namespace Testeur0
                         Program.RetourMenu();
                         break;
                     }
-                case 5: //Affichage classement Json
+                case 5: //Effacement des fichiers du classement
                     {
                         Console.Clear();
                         Console.WriteLine("Effacement des classements ? (O)ui ou (N)on");
@@ -167,7 +198,7 @@ namespace Testeur0
                         Sauvegarde = ConstructeurSauvegarde.RecupererSauvegarde();
                         Classement jeuClassement = Sauvegarde.Lire();
 
-                        //Sauvegarde de la partie dans tous les fichier
+                        //Sauvegarde de la partie dans tous les fichiers de suavegarde (Design Pattern Strategy)
                         for (int i = 0; i < 3; i++)
                         {
                             Partie.SauvegardeType = (TypeFichier)i;

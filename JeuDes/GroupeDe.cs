@@ -97,9 +97,9 @@ namespace JeuDes
         /// Méthode pour lancer un ou plusieurs dés
         /// Chaque dé selectionné se voit affecter une valeur
         /// </summary>
-        /// <param name="positionDe">Tableau d'entier de valeur 0 (ne pas modifier) ou 1 (modifier)</param>
+        /// <param name="positionDes">Tableau d'entier de valeur 0 (ne pas modifier) ou 1 (modifier)</param>
         /// <returns>Un tableau d'entier comportant les valeurs de chaque dé</returns>
-        public int[] Lancer(int[] positionDe)
+        public int[] Lancer(int[] positionDes)
         {
             //Utilsation du random pour générer l'index de la combinaison dans la collection
             Random r = new Random();
@@ -114,12 +114,12 @@ namespace JeuDes
             {
                 //Si position est modifiable on modifie la valeur du dé 
                 //dans la nouvelle combinaison
-                if (positionDe[i] == 1)
+                if (positionDes[i] == 1)
                 {
                     Des[i].Valeur = this.Combinaisons[Index][i];
                     NouvelleCombinaison[i] = this.Combinaisons[Index][i];
                 } 
-                else if(positionDe[i] == 0)
+                else if(positionDes[i] == 0)
                 {
                     //sinon on ajoute la valeur existante du dé 
                     //dans la nouvelle combinaison
